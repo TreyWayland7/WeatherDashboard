@@ -1,0 +1,21 @@
+h1{
+    color: white;
+    background-color: blue;
+    /* margin: 20px; */
+    padding: 20px;
+    margin: 0;
+
+    text-align: center;
+}
+
+
+.searchContainer{
+    
+    /* height: 1000px; */
+}
+
+.weatherContainer{
+    height: 800px;
+    margin: 0;
+    background-color: aqua;
+}
