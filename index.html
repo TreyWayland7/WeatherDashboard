@@ -15,28 +15,60 @@
     <div class="container-xxl weatherContainer ">
         <div class="row weatherContainerRow">
           <div class="col searchContainer">
+
             <form id="weatherForm" class="form-inline weatherForm">
+                <h4 class="citySearchText" >Search for a City:</h4>
+
                 <div class="form-group mx-sm-3 mb-2">
+                    
                   <label for="inputPassword2" class="sr-only">Password</label>
                   <input type="text" class="form-control" id="inputWeatherCity" placeholder="Seattle">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Search</button>
               </form>
-
+              <div id="searchHistoryEl" class="container-xxl"></div>
 
 
           </div>
           <div class="col-9">
             <div class="weatherTodayDisplay">
                 <div id="todayDisplay" class="todayDisplay">
+                    <div class="container-sm">
+                        <div class="row">
+                            <h3 id="currentWeatherDate"></h3>
+                        </div>
+                        <div class="row">
+                            <div class="col weatherText">
+                                    <div id="currentWeatherTemp">
+                                        
+                                    </div>
+                                    <div id="currentWeatherWind">
+                                        
+                                    </div>
+                                    <div id="currentWeatherHumidity">
+                                        
+                                    </div>
+                            </div>
+                            <div class="col-8">
+                                <img id="currentWeatherIcon" src="" alt="Weather Icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             <h5>5-Day Forcast:</h5>
+             <div id="forcasDsiplay" class="container-xl">
+                <div id="forcastRowAppend" class="row">
 
                 </div>
               </div>
+
           </div>
 
-         
+
         </div>
+
       </div>
+
 
    
    
