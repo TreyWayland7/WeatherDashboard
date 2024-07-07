@@ -78,37 +78,52 @@ function handleForcastRequest(data){
     dayFive_focastData = data.list[35];
 
     let forcastDays = [dayOne_focastData, dayTwo_focastData, dayThree_focastData, dayFour_focastData, dayFive_focastData];
-    for (forcast of forcastDays){
+    for (i=0; i< forcastDays.length; i++){
+        forcast = forcastDays[i];
         console.log(forcast);
         const forcastObj = createForcastObject(forcast);
-        // console.log(forcastObj);
-        let forCastContainer = document.createElement("div");
-        forCastContainer.classList.add("col");
-        forCastContainer.classList.add("forcastContainer");
-        // forCastContainer.innerHTML = "this";
-        forcastRowAppendEl.appendChild(forCastContainer);
 
-        let forCastDateEl = document.createElement("div");
-        forCastDateEl.classList.add("forcastDate");
+        let index = i +1;
+        const forCastDateEl = document.getElementById("forCastDate" + index);
+        const forCastIconEl = document.getElementById("forCastIcon" + index);
+        const forCastTempEl = document.getElementById("forCastTemp" + index);
+        const forCastWindEl = document.getElementById("forCastWind" + index);
+        const forCastHumidityEl = document.getElementById("forCastHumidity" + index);
+
         forCastDateEl.innerHTML = dayjs(forcastObj.date.split(" ")[0]).format('dddd, MMMM D YYYY');
-        forCastContainer.appendChild(forCastDateEl);
+        forCastIconEl.src = `https://openweathermap.org/img/wn/${forcastObj.iconID}@2x.png`;
+        forCastTempEl.innerHTML = "TEMP: " + forcastObj.temp + "&#8457";
+        forCastWindEl.innerHTML = "Wind: " + forcastObj.windSpeed + " MPH";
+        forCastHumidityEl.innerHTML = "Humidity: " + forcastObj.humidity + "%";
 
-        let forcastIconEl = document.createElement("img");
-        forcastIconEl.src = `https://openweathermap.org/img/wn/${forcastObj.iconID}@2x.png`
-        console.log(forcastIconEl.src);
-        forCastContainer.appendChild(forcastIconEl);
-        // temp
-        let divForcastTempEl = document.createElement("div");
-        divForcastTempEl.innerHTML = "TEMP: " + forcastObj.temp + "&#8457";
-        forCastContainer.appendChild(divForcastTempEl);
-        // wind
-        let divForcastWindEl = document.createElement("div");
-        divForcastWindEl.innerHTML = "Wind: " + forcastObj.windSpeed + " MPH";
-        forCastContainer.appendChild(divForcastWindEl);
-        // humidity
-        let divForcastHumidityEl = document.createElement("div");
-        divForcastHumidityEl.innerHTML = "Humidity: " + forcastObj.humidity + "%";
-        forCastContainer.appendChild(divForcastHumidityEl);
+        // console.log(forcastObj);
+        // let forCastContainer = document.createElement("div");
+        // forCastContainer.classList.add("col");
+        // forCastContainer.classList.add("forcastContainer");
+        // forCastContainer.innerHTML = "this";
+        // forcastRowAppendEl.appendChild(forCastContainer);
+
+        // let forCastDateEl = document.createElement("div");
+        // forCastDateEl.classList.add("forcastDate");
+        // forCastDateEl.innerHTML = dayjs(forcastObj.date.split(" ")[0]).format('dddd, MMMM D YYYY');
+        // forCastContainer.appendChild(forCastDateEl);
+
+        // let forcastIconEl = document.createElement("img");
+        // forcastIconEl.src = `https://openweathermap.org/img/wn/${forcastObj.iconID}@2x.png`
+        // console.log(forcastIconEl.src);
+        // forCastContainer.appendChild(forcastIconEl);
+        // // temp
+        // let divForcastTempEl = document.createElement("div");
+        // divForcastTempEl.innerHTML = "TEMP: " + forcastObj.temp + "&#8457";
+        // forCastContainer.appendChild(divForcastTempEl);
+        // // wind
+        // let divForcastWindEl = document.createElement("div");
+        // divForcastWindEl.innerHTML = "Wind: " + forcastObj.windSpeed + " MPH";
+        // forCastContainer.appendChild(divForcastWindEl);
+        // // humidity
+        // let divForcastHumidityEl = document.createElement("div");
+        // divForcastHumidityEl.innerHTML = "Humidity: " + forcastObj.humidity + "%";
+        // forCastContainer.appendChild(divForcastHumidityEl);
   
  
 
@@ -132,72 +147,15 @@ function createForcastObject(data){
 }
 
 
-
 function handleWeatherRequest(data){
     const weatherObj = createWeatherDayObject(data)
-
-
-    // let weatherContainer = document.createElement("div");
-    // weatherContainer.classList.add("container-sm");
-    // todayDisplayEl.appendChild(weatherContainer);
-    //row
-    // let weatherContainerRow = document.createElement("div");
-    // weatherContainerRow.classList.add("row");
-    // weatherContainer.appendChild(weatherContainerRow);
-    // header
-    // let dateHeader = document.createElement("h3");
     const today = dayjs();
     currentWeatherDateEl.innerHTML = weatherObj.name + " - " + today.format('dddd, MMMM D YYYY');
-    // dateHeader.innerHTML = weatherObj.name + " - " + today.format('dddd, MMMM D YYYY');
-    // weatherContainerRow.appendChild(dateHeader);
-    //row
-    // let weatherContainerRowt.add("row");
-    // weatherContainer.appendChil2 = document.createElement("div");
-    // weatherContainerRow2.classLisd(weatherContainerRow2);
-    //col
-    // let weatherContainercol = document.createElement("div");
-    // weatherContainercol.classList.add("col");
-    // weatherContainercol.classList.add("weatherText");
-    // weatherContainerRow2.appendChild(weatherContainercol);
-
-
-      //tempature
-    //   let tempDiv = document.createElement("div");
-        currentWeatherTempEl.innerHTML = "Temp: " + weatherObj.temp + "&#8457";
-    //   tempDiv.innerHTML = "Temp: " + weatherObj.temp + "&#8457";
-    //   weatherContainercol.appendChild(tempDiv);
-      // wind
-    //   let windDiv = document.createElement("div");
-    //   windDiv.innerHTML = "Wind: " + weatherObj.windSpeed + " MPH";
-        currentWeatherWindEl.innerHTML = "Wind: " + weatherObj.windSpeed + " MPH";
-    //   weatherContainercol.appendChild(windDiv);
-      // humidity
-    //   let humidityDiv = document.createElement("div");
-        currentWeatherHumidityEl.innerHTML = "Humidity: " + weatherObj.humidity + "%";
-    //   humidityDiv.innerHTML = "Humidity: " + weatherObj.humidity + "%";
-    //   weatherContainercol.appendChild(humidityDiv);
-  
- 
-   //col
-//    let weatherContainercol2 = document.createElement("div");
-//    weatherContainercol2.classList.add("col-8");
-//    weatherContainerRow2.appendChild(weatherContainercol2);
-
-   // img
-//    let iconIMG = document.createElement("img");
-   //https://openweathermap.org/img/wn/10d@2x.png
-//    iconIMG.src = `https://openweathermap.org/img/wn/${weatherObj.iconID}@2x.png`
-//    weatherContainercol2.appendChild(iconIMG);
+    currentWeatherTempEl.innerHTML = "Temp: " + weatherObj.temp + "&#8457";
+    currentWeatherWindEl.innerHTML = "Wind: " + weatherObj.windSpeed + " MPH";
+    currentWeatherHumidityEl.innerHTML = "Humidity: " + weatherObj.humidity + "%";
     currentWeatherIconEl.src = `https://openweathermap.org/img/wn/${weatherObj.iconID}@2x.png`;
-
-
-//   
 }
-
-
-
-
-
 
 function createWeatherDayObject(data){
     // console.log(data); // Example: Logging the data to the console
