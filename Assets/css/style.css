@@ -30,8 +30,14 @@ h1{
 
 
 .historyContainer{
-    background-color: brown;
+    background-color: blue;
     border-radius: 20px;
+    text-align: center;
+    color: white;
+    width: 50%;
+    margin: auto;
+    margin-top: 5px;
+    padding: 5px;
 }
 
 
@@ -68,7 +74,7 @@ h1{
 
 .todayDisplay{
     height: 200px;
-    background-color: whitesmoke;
+    background-color: rgb(86, 187, 83);
     padding: 10px;
     margin-left: 10px;
     margin-right: 10px;
