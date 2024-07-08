@@ -1,4 +1,3 @@
-// const dayjs = require("dayjs")
 const weatherFormEl = document.getElementById("weatherForm");
 const inputWeatherCityEl = document.getElementById("inputWeatherCity");
 const todayDisplayEl = document.getElementById("todayDisplay");
@@ -13,9 +12,7 @@ const currentWeatherDateEl = document.getElementById("currentWeatherDate");
 const apiKey = "86c614e4ea9b60a41fe8906b391de9ca";
 let storedID = JSON.parse(localStorage.getItem("id"));
 let storedWeather = JSON.parse(localStorage.getItem("savedWeather"));
-// let savedForcast = JSON.parse(localStorage.getItem("savedForcast"));
 let id = 0;
-// let savedForcast = [];
 let savedWeather = [];
 
 if (storedID > 0){
@@ -31,11 +28,7 @@ function renderSavedLocations(){
     for(weather of storedWeather){
         addSearchHistory(weather.name);
     }
-
-
-
 }
-
 
 function weatherFormSubmitHandler(event){
     event.preventDefault();
@@ -45,43 +38,32 @@ function weatherFormSubmitHandler(event){
     addSearchHistory(cityInput);
     id += 1;
     localStorage.setItem('id', JSON.stringify(id));
-    //lat=33.44&lon=-94.04
-
 }
 
-
 function addSearchHistory(cityInput){
-    //searchHistoryEl
     let searchHistoryContainerEl = document.createElement("div");
     searchHistoryContainerEl.classList.add("historyContainer");
     searchHistoryContainerEl.innerHTML = cityInput;
     searchHistoryContainerEl.addEventListener('click', displayLocationFromSearchHistory);
     searchHistoryEl.appendChild(searchHistoryContainerEl);
-    
-
 }
 
 function displayLocationFromSearchHistory(event){
-    // event.preventDefault();
-    // storedWeather = JSON.parse(localStorage.getItem("savedWeather"));
     cityName = event.currentTarget.innerHTML;
     let currentWeather = "";
     let currentID = "";
     let currentForcast = "";
     // console.log(savedWeather);
-
     for(let i=0; i<savedWeather.length; i++){
         weather = savedWeather[i];
-        if (weather.name == cityName){
+        if (weather.name.toLowerCase() == cityName.toLowerCase()){
             currentWeather = weather;
             currentID = weather.id;
             let savedForcast = JSON.parse(localStorage.getItem("savedForcast" + currentID));
             currentForcast = savedForcast;
         }
     }
-    console.log(currentWeather);
-    console.log(currentForcast);
-    // console.log();
+
     const today = dayjs();
     currentWeatherDateEl.innerHTML = currentWeather.name + " - " + today.format('dddd, MMMM D YYYY');
     currentWeatherTempEl.innerHTML = "Temp: " + currentWeather.temp + "&#8457";
@@ -105,14 +87,8 @@ function displayLocationFromSearchHistory(event){
     }
 }
 
-
 function callForcastAPI(cityName){
     const apiRequest = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&APPID=4393ee44e42a1059d7c3b2ec2bb61fc3`;
-    
-    // console.log(apiRequest);
-
-
-    
     fetch(apiRequest)
         .then(response => {
             if (response.ok) {
@@ -122,29 +98,15 @@ function callForcastAPI(cityName){
             }
         })
         .then(data => {
-            // Process the response data here
-            // console.log(data); // Example: Logging the data to the console
-            // console.log(data.wind.speed);
-            // console.log(((data.main.temp-273.15)*1.8)+32);//((K-273.15)*1.8)+32
-            // console.log(data.main.humidity);
-            // console.log(data.weather[0].description);
-            
             const forcastObj = handleForcastRequest(data);
             console.log(forcastObj);
-            // return data;
-
-            
         })
         .catch(error => {
-            // Handle any errors here
             console.error(error); // Example: Logging the error to the console
     });
-
 }
 
-
 function handleForcastRequest(data){
-
     dayOne_focastData = data.list[3];
     dayTwo_focastData = data.list[12];
     dayThree_focastData = data.list[21];
@@ -156,7 +118,6 @@ function handleForcastRequest(data){
 
     for (i=0; i< forcastDays.length; i++){
         forcast = forcastDays[i];
-        // console.log(forcast);
         const forcastObj = createForcastObject(forcast);
 
         let index = i +1;
@@ -174,43 +135,8 @@ function handleForcastRequest(data){
 
         savedForcast.push(forcastObj);
         localStorage.setItem('savedForcast' + id, JSON.stringify(savedForcast));
-
-        // console.log(forcastObj);
-        // let forCastContainer = document.createElement("div");
-        // forCastContainer.classList.add("col");
-        // forCastContainer.classList.add("forcastContainer");
-        // forCastContainer.innerHTML = "this";
-        // forcastRowAppendEl.appendChild(forCastContainer);
-
-        // let forCastDateEl = document.createElement("div");
-        // forCastDateEl.classList.add("forcastDate");
-        // forCastDateEl.innerHTML = dayjs(forcastObj.date.split(" ")[0]).format('dddd, MMMM D YYYY');
-        // forCastContainer.appendChild(forCastDateEl);
-
-        // let forcastIconEl = document.createElement("img");
-        // forcastIconEl.src = `https://openweathermap.org/img/wn/${forcastObj.iconID}@2x.png`
-        // console.log(forcastIconEl.src);
-        // forCastContainer.appendChild(forcastIconEl);
-        // // temp
-        // let divForcastTempEl = document.createElement("div");
-        // divForcastTempEl.innerHTML = "TEMP: " + forcastObj.temp + "&#8457";
-        // forCastContainer.appendChild(divForcastTempEl);
-        // // wind
-        // let divForcastWindEl = document.createElement("div");
-        // divForcastWindEl.innerHTML = "Wind: " + forcastObj.windSpeed + " MPH";
-        // forCastContainer.appendChild(divForcastWindEl);
-        // // humidity
-        // let divForcastHumidityEl = document.createElement("div");
-        // divForcastHumidityEl.innerHTML = "Humidity: " + forcastObj.humidity + "%";
-        // forCastContainer.appendChild(divForcastHumidityEl);
-  
- 
-        // return forcastObj;
     };
-
-
 }
-
 
 function createForcastObject(data){
     console.log(data);
@@ -223,9 +149,7 @@ function createForcastObject(data){
         id : id
     };
     return forcastObj;
-
 }
-
 
 function handleWeatherRequest(data){
     const weatherObj = createWeatherDayObject(data)
@@ -235,17 +159,11 @@ function handleWeatherRequest(data){
     currentWeatherWindEl.innerHTML = "Wind: " + weatherObj.windSpeed + " MPH";
     currentWeatherHumidityEl.innerHTML = "Humidity: " + weatherObj.humidity + "%";
     currentWeatherIconEl.src = `https://openweathermap.org/img/wn/${weatherObj.iconID}@2x.png`;
-
     savedWeather.push(weatherObj);
     localStorage.setItem('savedWeather', JSON.stringify(savedWeather));
 }
 
 function createWeatherDayObject(data){
-    // console.log(data); // Example: Logging the data to the console
-    // console.log(data.wind.speed);
-    // console.log((((data.main.temp-273.15)*1.8)+32).toFixed(2));//((K-273.15)*1.8)+32
-    // console.log(data.main.humidity);
-    // console.log(data.weather[0].description);
     const weatherObj = {
         name : data.name,
         iconID : data.weather[0].icon,
@@ -254,17 +172,11 @@ function createWeatherDayObject(data){
         humidity : data.main.humidity,
         id : id
     }
-
     return weatherObj;
 }
 
 function callWeatherAPI(cityName){
     const apiRequest = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=4393ee44e42a1059d7c3b2ec2bb61fc3`;
-    
-    // console.log(apiRequest);
-
-
-    
     fetch(apiRequest)
         .then(response => {
             if (response.ok) {
@@ -274,25 +186,11 @@ function callWeatherAPI(cityName){
             }
         })
         .then(data => {
-            // Process the response data here
-            // console.log(data); // Example: Logging the data to the console
-            // console.log(data.wind.speed);
-            // console.log(((data.main.temp-273.15)*1.8)+32);//((K-273.15)*1.8)+32
-            // console.log(data.main.humidity);
-            // console.log(data.weather[0].description);
-            
             handleWeatherRequest(data);
-            // return data;
-
-            
         })
         .catch(error => {
-            // Handle any errors here
             console.error(error); // Example: Logging the error to the console
     });
-
 }
-
-
 
 weatherFormEl.addEventListener("submit", weatherFormSubmitHandler);

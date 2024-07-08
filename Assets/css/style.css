@@ -1,17 +1,10 @@
 h1{
     color: white;
     background-color: blue;
-    /* margin: 20px; */
     padding: 20px;
     margin: 0;
 
     text-align: center;
-}
-
-
-.searchContainer{
-    
-    /* height: 1000px; */
 }
 
 .weatherText{
@@ -64,7 +57,6 @@ h1{
     height: 800px;
     margin: 0;
     background-color: aqua;
-    /* text-align: center; */
 }
 
 .weatherTodayDisplay{
@@ -82,7 +74,4 @@ h1{
     margin: auto;
     border: black solid;
     border-radius: 20px;
-    /* text-align: center; */
-    /* margin-top: 10px; */
-    /* margin-top: 10px; */
 }
